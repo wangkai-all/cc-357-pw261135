@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>批次交付接收台 · 三段回执</title>
+  <link rel="stylesheet" href="/app/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1>批次交付接收台</h1>
+        <p>收件 → 格式校验 → 业务入库，三段回执全部落地才算接收完成</p>
+      </div>
+    </div>
+    <div class="health" id="health" aria-live="polite"></div>
+  </header>
+
+  <main class="layout">
+    <aside class="rail">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>提交批次</h2>
+          <span class="hint">使用虚构样例文件</span>
+        </div>
+        <div class="panel-body">
+          <label class="field">
+            <span>样例文件</span>
+            <select id="fixture-select"></select>
+          </label>
+          <div class="fixture-preview" id="fixture-preview" aria-live="polite"></div>
+          <label class="field">
+            <span>备注（可选）</span>
+            <input id="upload-note" type="text" maxlength="200" placeholder="例如：11 月首批" />
+          </label>
+          <button class="btn primary block" id="upload-btn">交付此文件</button>
+          <p class="micro">
+            交付成功只代表交换服务已登记文件；校验与入库回执未到之前，本页不会显示“接收完成”。
+          </p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>批次列表</h2>
+          <button class="btn quiet small" id="refresh-btn" title="立即刷新">刷新</button>
+        </div>
+        <div class="panel-body list" id="batch-list"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>故障演练</h2>
+          <span class="hint">真实接口往返</span>
+        </div>
+        <div class="panel-body">
+          <p class="micro" id="sim-target">先在右侧选中一个批次</p>
+          <div class="sim-grid">
+            <button class="btn small" data-sim="lose_next_receipt" data-stage="format">丢格式回执</button>
+            <button class="btn small" data-sim="lose_next_receipt" data-stage="ingest">丢入库回执</button>
+            <button class="btn small" data-sim="lose_receipt_after_commit">入库后断连</button>
+            <button class="btn small" data-sim="disconnect_after_send" data-stage="ingest">响应断开</button>
+            <button class="btn small" data-sim="out_of_order">乱序到达</button>
+            <button class="btn small" data-sim="duplicate_receipt" data-stage="ingest">重复回执</button>
+            <button class="btn small" data-sim="wrong_batch_reference" data-stage="ingest">错批次引用</button>
+            <button class="btn small" data-sim="wrong_token" data-stage="ingest">错 token</button>
+            <button class="btn small" data-sim="tampered_receipt" data-stage="ingest">篡改回执</button>
+            <button class="btn small" data-sim="replace_then_old_receipt" data-stage="ingest">替代后旧回执</button>
+          </div>
+          <button class="btn quiet small block" id="clear-faults-btn">清除全部故障</button>
+          <div class="sim-notes" id="sim-notes" aria-live="polite"></div>
+        </div>
+      </section>
+    </aside>
+
+    <section class="stage-area">
+      <div id="detail" class="detail"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>三段服务各自独立运行、各自持有数据库；回执带签发方 HMAC，交换服务只认签名与 token 都对得上的回执。</span>
+    <a href="/api/health" target="_blank" rel="noreferrer">健康检查</a>
+  </footer>
+
+  <div class="toast-stack" id="toasts" aria-live="assertive"></div>
+  <script type="module" src="/app/app.js"></script>
+</body>
+</html>

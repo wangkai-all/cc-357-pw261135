@@ -1,0 +1,22 @@
+{
+  "name": "batch-delivery-console",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Three-stage batch delivery acceptance console: exchange, validation and ingestion with receipts, resubmission and traceability",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node scripts/start-all.js",
+    "start:exchange": "node src/services/exchange/server.js",
+    "start:validation": "node src/services/validation/app.js",
+    "start:ingestion": "node src/services/ingestion/app.js",
+    "start:console": "node src/console/app.js",
+    "test": "node --test test/*.test.js",
+    "demo": "node scripts/demo.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

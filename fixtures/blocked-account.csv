@@ -1,0 +1,3 @@
+record_id,account_no,amount,currency,occurred_at
+REC-3001,ACC-7701,100.00,USD,2026-11-12T11:00:00Z
+REC-3002,BLOCKED-0001,500.00,USD,2026-11-12T11:01:00Z

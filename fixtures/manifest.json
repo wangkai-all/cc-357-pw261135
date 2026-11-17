@@ -1,0 +1,56 @@
+[
+  {
+    "name": "clean-batch.csv",
+    "label": "合规批次（4 条）",
+    "expected": "format_passed",
+    "note": "应完整走完收件、校验、入库三步",
+    "sizeBytes": 248,
+    "contentBase64": "cmVjb3JkX2lkLGFjY291bnRfbm8sYW1vdW50LGN1cnJlbmN5LG9jY3VycmVkX2F0ClJFQy0xMDAxLEFDQy04ODAxLDEyNS41MCxVU0QsMjAyNi0xMS0xMFQwOTowMDowMFoKUkVDLTEwMDIsQUNDLTg4MDIsOTkuOTksRVVSLDIwMjYtMTEtMTBUMDk6MDU6MDBaClJFQy0xMDAzLEFDQy04ODAzLDE1MDAuMDAsQ05ZLDIwMjYtMTEtMTBUMDk6MTA6MDBaClJFQy0xMDA0LEFDQy04ODA0LDQyLjAwLFVTRCwyMDI2LTExLTEwVDA5OjE1OjAwWgo=",
+    "preview": "record_id,account_no,amount,currency,occurred_at\nREC-1001,ACC-8801,125.50,USD,2026-11-10T09:00:00Z\nREC-1002,ACC-8802,99.99,EUR,2026-11-10T09:05:00Z\nREC-1003,ACC-8803,1500.00,CNY,2026-11-10T09:10:00Z\nREC-1004,ACC-8804,42.00,USD,2026-11-10T09:15:00Z\n"
+  },
+  {
+    "name": "clean-batch-revised.csv",
+    "label": "合规批次修正版（5 条）",
+    "expected": "format_passed",
+    "note": "用于同批次补交演练",
+    "sizeBytes": 297,
+    "contentBase64": "cmVjb3JkX2lkLGFjY291bnRfbm8sYW1vdW50LGN1cnJlbmN5LG9jY3VycmVkX2F0ClJFQy0xMDAxLEFDQy04ODAxLDEyNS41MCxVU0QsMjAyNi0xMS0xMFQwOTowMDowMFoKUkVDLTEwMDIsQUNDLTg4MDIsOTkuOTksRVVSLDIwMjYtMTEtMTBUMDk6MDU6MDBaClJFQy0xMDAzLEFDQy04ODAzLDE1MDAuMDAsQ05ZLDIwMjYtMTEtMTBUMDk6MTA6MDBaClJFQy0xMDA0LEFDQy04ODA0LDQyLjAwLFVTRCwyMDI2LTExLTEwVDA5OjE1OjAwWgpSRUMtMTAwNSxBQ0MtODgwNSw3Ny43MCxVU0QsMjAyNi0xMS0xMFQwOToyMDowMFoK",
+    "preview": "record_id,account_no,amount,currency,occurred_at\nREC-1001,ACC-8801,125.50,USD,2026-11-10T09:00:00Z\nREC-1002,ACC-8802,99.99,EUR,2026-11-10T09:05:00Z\nREC-1003,ACC-8803,1500.00,CNY,2026-11-10T09:10:00Z\nREC-1004,ACC-8804,42.00,USD,2026-11-10T09:15:00Z\nREC-1005,ACC-8805,77.70,USD,2026-11-10T09:20:00Z\n"
+  },
+  {
+    "name": "bad-format.csv",
+    "label": "格式/字段错误批次",
+    "expected": "format_failed",
+    "note": "含小数超限、空账户、非法币种、非法时间、文件内重复 ID",
+    "sizeBytes": 277,
+    "contentBase64": "cmVjb3JkX2lkLGFjY291bnRfbm8sYW1vdW50LGN1cnJlbmN5LG9jY3VycmVkX2F0ClJFQy0yMDAxLEFDQy05OTAxLDEyLjM0NSxVU0QsMjAyNi0xMS0xMVQxMDowMDowMFoKUkVDLTIwMDIsLDUwLjAwLFVTRCwyMDI2LTExLTExVDEwOjAxOjAwWgpSRUMtMjAwMyxBQ0MtOTkwMyw4MC4wMCxCVEMsMjAyNi0xMS0xMVQxMDowMjowMFoKUkVDLTIwMDQsQUNDLTk5MDQsMzAuMDAsVVNELG5vdC1hLWRhdGUKUkVDLTIwMDEsQUNDLTk5MDUsMTAuMDAsVVNELDIwMjYtMTEtMTFUMTA6MDQ6MDBaCg==",
+    "preview": "record_id,account_no,amount,currency,occurred_at\nREC-2001,ACC-9901,12.345,USD,2026-11-11T10:00:00Z\nREC-2002,,50.00,USD,2026-11-11T10:01:00Z\nREC-2003,ACC-9903,80.00,BTC,2026-11-11T10:02:00Z\nREC-2004,ACC-9904,30.00,USD,not-a-date\nREC-2001,ACC-9905,10.00,USD,2026-11-11T10:04:00Z\n"
+  },
+  {
+    "name": "blocked-account.csv",
+    "label": "黑名单账户批次",
+    "expected": "format_failed",
+    "note": "第二行账户在业务黑名单",
+    "sizeBytes": 153,
+    "contentBase64": "cmVjb3JkX2lkLGFjY291bnRfbm8sYW1vdW50LGN1cnJlbmN5LG9jY3VycmVkX2F0ClJFQy0zMDAxLEFDQy03NzAxLDEwMC4wMCxVU0QsMjAyNi0xMS0xMlQxMTowMDowMFoKUkVDLTMwMDIsQkxPQ0tFRC0wMDAxLDUwMC4wMCxVU0QsMjAyNi0xMS0xMlQxMTowMTowMFoK",
+    "preview": "record_id,account_no,amount,currency,occurred_at\nREC-3001,ACC-7701,100.00,USD,2026-11-12T11:00:00Z\nREC-3002,BLOCKED-0001,500.00,USD,2026-11-12T11:01:00Z\n"
+  },
+  {
+    "name": "truncated.csv",
+    "label": "截断文件",
+    "expected": "format_failed",
+    "note": "最后一行缺列",
+    "sizeBytes": 126,
+    "contentBase64": "cmVjb3JkX2lkLGFjY291bnRfbm8sYW1vdW50LGN1cnJlbmN5LG9jY3VycmVkX2F0ClJFQy00MDAxLEFDQy02NjAxLDEwLjAwLFVTRCwyMDI2LTExLTEzVDEyOjAwOjAwWgpSRUMtNDAwMixBQ0MtNjYwMiwyMC4wMCxVU0QK",
+    "preview": "record_id,account_no,amount,currency,occurred_at\nREC-4001,ACC-6601,10.00,USD,2026-11-13T12:00:00Z\nREC-4002,ACC-6602,20.00,USD\n"
+  },
+  {
+    "name": "empty.csv",
+    "label": "空文件",
+    "expected": "format_failed",
+    "note": "上传即被拒",
+    "sizeBytes": 0,
+    "contentBase64": "",
+    "preview": ""
+  }
+]
